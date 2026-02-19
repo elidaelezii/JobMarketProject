@@ -1,106 +1,101 @@
-# JobMarketProject
+JobMarketProject
 
-Ky projekt është një pipeline modulare për nxjerrjen, përpunimin, analizën, enkriptimin dhe ruajtjen e të dhënave të punëve (job listings).
-Struktura është e ndarë në module, secili me funksion specifik:
+This project is a modular pipeline for extracting, processing, analyzing, encrypting, and storing job listing data. The architecture is divided into modules, each with a specific responsibility:
 
-scraper → nxjerr të dhëna live nga një faqe demo: title, company, location.
+scraper → Extracts live data from a demo job site: title, company, location.
 
-api_clients → pasuron të dhënat me aftësi (skills) ose fusha shtesë.
+api_clients → Enriches the data with additional fields such as skills or job level.
 
-processing → analizon aftësitë më të kërkuara për të identifikuar trendet.
+processing → Analyzes the most requested skills to identify trends.
 
-security → enkripton titujt e punës për ruajtje të sigurt.
+security → Encrypts job titles for secure storage.
 
-storage → ruan të dhënat e përpunuara për përdorim të mëvonshëm.
+storage → Saves the processed data for later use.
 
-app/main.py → entry point që ekzekuton të gjithë pipeline-in nga fillimi deri te output.
+app/main.py → Entry point that executes the entire pipeline from start to finish.
 
-
-Strukturimi i Folderave
+Folder Structure
 JobMarketProject/
-
 ├─ app/
-│   ├─ main.py        # Entry point i projektit
+│   ├─ main.py        # Project entry point
 │   └─ __init__.py
-
 
 ├─ scraper/
-│   ├─ scraper.py      # Funksioni scrape_jobs() nxjerr tituj, kompani dhe vendndodhje
+│   ├─ scraper.py     # scrape_jobs() function extracts title, company, location
 │   └─ __init__.py
-
 
 ├─ api_clients/
-│   ├─ enrichment.py   # Logjika për pasurimin e të dhënave
+│   ├─ enrichment.py  # Logic to enrich job data
 │   └─ __init__.py
-
 
 ├─ processing/
-│   ├─ analytics.py    # Funksione për analizën e aftësive më të kërkuara
+│   ├─ analytics.py   # Functions for skill analysis
 │   └─ __init__.py
 
-
 ├─ security/
-│   ├─ encryption.py   # Enkriptimi i titujve të punëve
-    └─ __init__.py
+│   ├─ encryption.py  # Job title encryption
+│   └─ __init__.py
 
 ├─ storage/
-│   ├─ database.py     # Ruajtja e të dhënave (p.sh. në file ose database)
-    └─ __init__.py
+│   ├─ database.py    # Saving processed job data
+│   └─ __init__.py
 
+Data Flow:
 
-Rrjedha e të Dhënave:
-
-* Scraping
-scraper.scraper.scrape_jobs() merr të dhëna live nga:
-Fake Jobs Demo
-Nxjerr për secilin job: title, company, location.
+*Scraping
+scraper.scraper.scrape_jobs() fetches live job data from the Fake Jobs Demo site
+ and extracts: title, company, location.
 
 *Enrichment
-api_clients.enrichment.enrich_jobs() mund të përdoret për të shtuar fushat ekstra, si skills ose job level.
-Processing / Analytics
-processing.analytics.top_skills() analizon të dhënat dhe nxjerr aftësitë më të kërkuara nga titujt ose description.
+api_clients.enrichment.enrich_jobs() can add extra fields like skills or job level.
+
+*Processing / Analytics
+processing.analytics.top_skills() analyzes job data to determine the most requested skills from titles or descriptions.
 
 *Security / Encryption
-security.encryption.encrypt_value() enkripton titujt e punës (p.sh. për ruajtje të sigurt ose për demonstrim të pipeline-it).
+security.encryption.encrypt_value() encrypts job titles for secure storage or demonstration purposes.
 
 *Storage
-storage.database.save_jobs() ruan të dhënat e përpunuara për përdorim të mëtejshëm ose analizë.
+storage.database.save_jobs() saves the processed data for later use or analysis.
 
-*Main.py
-app.main.run() ekzekuton të gjithë pipeline-in:
+*Pipeline Execution
+app.main.run() executes the full pipeline:
+
 Scrape → Enrich → Analytics → Encrypt → Save → Output
 
-*Libraritë dhe Teknologjitë e Përdorura
+Libraries and Technologies Used:
+
 Python 3.12
-requests – për kërkesat HTTP dhe scraping
-BeautifulSoup – për parsimin e HTML
-collections.Counter – për analizën e aftësive më të kërkuara
-Funksione modulare dhe strukturë me __init__.py
+requests – for HTTP requests and scraping
+BeautifulSoup – for parsing HTML
+collections.Counter – for analyzing top skills
+Modular Python structure using __init__.py files
 
-*Enkriptimi
-Titujt e punëve enkriptohen me një funksion të thjeshtë të demonstruar (encrypt_value)
-Mund të zëvendësohet me enkriptim real (Fernet/AES) për siguri reale.
+Encryption:
+Job titles are encrypted using a simple demonstration function (encrypt_value).
+For real security, this can be replaced with Fernet/AES encryption.
 
-Udhëzime për Ekzekutim:
-Sigurohu që Python 3 është instaluar.
-Instaloni libraritë e nevojshme:
+How to Run:
+
+Make sure Python 3 is installed.
+Install required libraries:
+
 pip install requests beautifulsoup4
-collections.Counter – për analizën e aftësive më të kërkuara
-Funksione modulare dhe strukturë me __init__.py
-Shko në folderin kryesor të projektit dhe ekzekuto:
+
+Navigate to the main project folder and run:
 
 python -m app.main
 
+The script outputs:
 
-Do të shfaqen:
-Titujt e enkriptuar të punës
-Top skills nga analiza
+Encrypted job titles
 
-Output Shembull
+Top skills from the analysis
+
+Example Output:
 Top Skills: {'Python': 100, 'SQL': 100, 'Cyber Security': 100, 'AI': 100}
 Encrypted Job Titles:
-repoleveD nohtyP roineS
-reenigne ygrenE
-evitucexe lageL
-
-
+Senior Python Developer
+Energy Engineer
+Legal Executive
+...
