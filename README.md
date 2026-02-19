@@ -18,30 +18,34 @@ app/main.py → entry point që ekzekuton të gjithë pipeline-in nga fillimi de
 
 Strukturimi i Folderave
 JobMarketProject/
-│
+
 ├─ app/
 │   ├─ main.py        # Entry point i projektit
 │   └─ __init__.py
-│
+
+
 ├─ scraper/
 │   ├─ scraper.py      # Funksioni scrape_jobs() nxjerr tituj, kompani dhe vendndodhje
 │   └─ __init__.py
-│
+
+
 ├─ api_clients/
 │   ├─ enrichment.py   # Logjika për pasurimin e të dhënave
 │   └─ __init__.py
-│
+
+
 ├─ processing/
 │   ├─ analytics.py    # Funksione për analizën e aftësive më të kërkuara
 │   └─ __init__.py
-│
+
+
 ├─ security/
 │   ├─ encryption.py   # Enkriptimi i titujve të punëve
-│   └─ __init__.py
-│
+    └─ __init__.py
+
 ├─ storage/
 │   ├─ database.py     # Ruajtja e të dhënave (p.sh. në file ose database)
-│   └─ __init__.py
+    └─ __init__.py
 
 
 Rrjedha e të Dhënave:
@@ -99,5 +103,4 @@ repoleveD nohtyP roineS
 reenigne ygrenE
 evitucexe lageL
 
-│
-└─ jobs.html           # Fshihet, nuk përdoret më (përdorim live scraping)
+
